@@ -21,40 +21,34 @@ export default function Header() {
                 <nav className={styles.nav}>
                     <Link
                         href="/"
-                        className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
+                        className={`${styles.navLink} ${styles.navHome} ${isActive('/') ? styles.active : ''}`}
                     >
                         Home
                     </Link>
 
-                    {isAuthenticated && (
-                        <>
-                            <Link
-                                href="/roadmap"
-                                className={`${styles.navLink} ${isActive('/roadmap') ? styles.active : ''}`}
-                            >
-                                Roadmap
-                            </Link>
-                            <Link
-                                href="/calendar"
-                                className={`${styles.navLink} ${isActive('/calendar') ? styles.active : ''}`}
-                            >
-                                Calendar
-                            </Link>
-                        </>
-                    )}
-
+                    <Link
+                        href="/roadmap"
+                        className={`${styles.navLink} ${isActive('/roadmap') ? styles.active : ''}`}
+                    >
+                        Roadmap
+                    </Link>
+                    <Link
+                        href="/calendar"
+                        className={`${styles.navLink} ${isActive('/calendar') ? styles.active : ''}`}
+                    >
+                        Calendar
+                    </Link>
                     <Link
                         href="/league"
                         className={`${styles.navLink} ${isActive('/league') || pathname?.startsWith('/league/') ? styles.active : ''}`}
                     >
                         League
                     </Link>
-
                     <Link
                         href="/contact"
                         className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`}
                     >
-                        Contact
+                        About
                     </Link>
                 </nav>
 
@@ -70,7 +64,7 @@ export default function Header() {
                         </>
                     ) : (
                         <Link href="/login" className={styles.btnLogin}>
-                            Login / Sign Up
+                            Login/ Sign Up
                         </Link>
                     )}
                 </div>

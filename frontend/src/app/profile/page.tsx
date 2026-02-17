@@ -2,9 +2,16 @@
 
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/context/AuthContext';
-import { useProfile } from '@/context/ProfileContext';
+import { useProfile, type PreferredRole } from '@/context/ProfileContext';
+import { useRoadmap } from '@/context/RoadmapContext';
 import { useState } from 'react';
 import styles from './profile.module.css';
+
+const ROLE_OPTIONS: { value: PreferredRole; label: string; desc: string }[] = [
+    { value: 'red', label: 'Red Team', desc: 'Offensive Security' },
+    { value: 'blue', label: 'Blue Team', desc: 'Defensive Security' },
+    { value: 'purple', label: 'Purple Team', desc: 'Collaboration & Optimization' },
+];
 
 export default function ProfilePage() {
     return (
@@ -17,6 +24,7 @@ export default function ProfilePage() {
 function ProfileContent() {
     const { user } = useAuth();
     const { profile, updateProfile, addEducation, removeEducation, addExperience, removeExperience, addSkill, removeSkill } = useProfile();
+    const { selectField } = useRoadmap();
     const [editing, setEditing] = useState(false);
     const [basicInfo, setBasicInfo] = useState({
         name: profile.name || user?.name || '',
@@ -37,6 +45,11 @@ function ProfileContent() {
             addSkill(newSkill.trim());
             setNewSkill('');
         }
+    };
+
+    const handleRoleSelect = (role: PreferredRole) => {
+        updateProfile({ preferredRole: role });
+        selectField(role);
     };
 
     return (
@@ -145,6 +158,32 @@ function ProfileContent() {
                             </div>
                         )}
                     </div>
+                </section>
+
+                {/* Career Path / Preferred Role */}
+                <section className={styles.section}>
+                    <div className={styles.sectionHeader}>
+                        <h2>Career Path in Cybersecurity</h2>
+                    </div>
+                    <p className={styles.roleHint}>Choose the role that matches your goals. Your roadmap and recommendations will reflect this choice.</p>
+                    <div className={styles.roleGrid}>
+                        {ROLE_OPTIONS.map((opt) => (
+                            <button
+                                key={opt.value}
+                                type="button"
+                                onClick={() => handleRoleSelect(opt.value)}
+                                className={`${styles.roleCard} ${profile.preferredRole === opt.value ? styles.roleCardActive : ''}`}
+                            >
+                                <span className={styles.roleLabel}>{opt.label}</span>
+                                <span className={styles.roleDesc}>{opt.desc}</span>
+                            </button>
+                        ))}
+                    </div>
+                    {profile.preferredRole && (
+                        <p className={styles.roleSelected}>
+                            Your roadmap is set to <strong>{ROLE_OPTIONS.find(r => r.value === profile.preferredRole)?.label}</strong>.
+                        </p>
+                    )}
                 </section>
 
                 {/* Skills */}

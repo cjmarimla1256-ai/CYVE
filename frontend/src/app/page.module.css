@@ -5,7 +5,7 @@
 /* Logged Out Home - Hero Section */
 .hero {
     padding: 3rem 4rem 4rem;
-    background-color: var(--color-black);
+    background-color: #000000;
 }
 
 .heroContent {
@@ -22,7 +22,7 @@
     width: 100%;
     max-width: 899px;
     height: 107px;
-    background-color: var(--color-white);
+    background-color: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: var(--radius-md);
     display: flex;
@@ -32,41 +32,53 @@
 }
 
 .searchPlaceholder {
+    font-family: var(--font-family-primary);
     font-size: 1rem;
+    font-weight: 400;
     color: #8d8d8d;
 }
 
 .tagline {
-    font-size: 2rem;
+    font-family: var(--font-family-primary);
+    font-size: 32px;
     font-weight: 400;
-    color: var(--color-white);
+    line-height: 38.73px;
+    color: #ffffff;
     margin: 0;
+    text-align: center;
 }
 
 .heroTitle {
-    font-size: 4rem;
+    font-family: var(--font-family-primary);
+    font-size: 64px;
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 77.45px;
     margin: 2rem 0 1rem;
-    color: var(--color-white);
+    color: #ffffff;
+    text-align: center;
 }
 
 .heroSubtitle {
-    font-size: 2rem;
+    font-family: var(--font-family-primary);
+    font-size: 32px;
     font-weight: 700;
-    color: var(--color-white);
-    margin: 0 0 1.5rem;
+    line-height: 38.73px;
+    color: #ffffff;
+    margin: 0 auto 1.5rem;
+    text-align: right;
+    max-width: 658px;
+    display: block;
 }
 
 .heroDescription {
-    font-size: 1.5rem;
+    font-family: var(--font-family-primary);
+    font-size: 1rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
     line-height: 1.5;
-    margin: 0 0 2rem;
+    margin: 0 auto 2rem;
     max-width: 658px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
 }
 
 .ctaButtons {
@@ -76,64 +88,100 @@
     margin-top: 3rem;
 }
 
-/* Hero Image Section */
-.heroImageSection {
-    padding: 0 4rem 4rem;
-    background-color: var(--color-black);
+/* Team Sections - Red / Blue / Purple - Figma layout */
+.teamSection {
+    background-color: #000000;
+    padding: 0 0 2rem;
 }
 
-.heroImageWrapper {
+.teamImageWrapper {
     position: relative;
     max-width: 1511px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.heroImagePlaceholder {
+.teamImageMain {
     width: 100%;
-    min-height: 400px;
-    background: linear-gradient(135deg, rgba(245, 190, 30, 0.1), rgba(0, 0, 0, 0.8));
-    border-radius: var(--radius-md);
+    height: 400px;
+    background: linear-gradient(135deg, rgba(245, 190, 30, 0.15), rgba(0, 0, 0, 0.9));
+    border: none;
+}
+
+.teamBlue {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(0, 0, 0, 0.9));
+}
+
+.teamPurple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(0, 0, 0, 0.9));
+}
+
+.teamImageCard {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    padding: 1.5rem 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #f5be1e;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: var(--color-gold);
-    border: 2px solid rgba(245, 190, 30, 0.3);
 }
 
-.imageLabels {
+.teamImagePlaceholder {
+    font-family: var(--font-family-primary);
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.teamLabels {
     display: flex;
     justify-content: space-between;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     padding: 0 2rem;
+    max-width: 1511px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.labelLeft,
-.labelRight {
-    font-size: 1.5rem;
+.teamLabelLeft,
+.teamLabelRight {
+    font-family: var(--font-family-primary);
+    font-size: 24px;
     font-weight: 400;
-    color: var(--color-white);
+    color: #ffffff;
+}
+
+.teamLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 /* Features Section */
 .featuresSection {
     padding: 5rem 4rem;
-    background-color: var(--color-black);
+    background-color: #000000;
 }
 
 .sectionTitle {
-    font-size: 8rem;
+    font-family: var(--font-family-primary);
+    font-size: 128px;
     font-weight: 700;
+    line-height: 154.91px;
     text-align: center;
     margin: 0 0 4rem;
-    color: var(--color-gold);
+    color: #f5be1e;
 }
 
 .featureGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -141,37 +189,37 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     padding: 2rem;
-    background-color: var(--color-dark-gray);
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #f5be1e;
+    border-radius: var(--radius-md);
+    min-height: 304px;
     transition: all var(--transition-base);
     text-align: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .featureCard:hover {
-    transform: translateY(-8px);
-    border-color: rgba(245, 190, 30, 0.5);
-    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(245, 190, 30, 0.4);
 }
 
-.featureIcon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+.featureIconWrapper {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.featureCard h3 {
-    font-size: 1.5rem;
+.featureCardTitle {
+    font-family: var(--font-family-primary);
+    font-size: 36px;
     font-weight: 700;
-    color: var(--color-gold);
-    margin: 0 0 0.5rem;
-}
-
-.featureCard p {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.5;
+    line-height: 43.57px;
+    color: #000000;
     margin: 0;
 }
 
@@ -358,6 +406,7 @@
 @media (max-width: 1200px) {
     .featureGrid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
     .statsGrid {
@@ -385,6 +434,7 @@
 
     .sectionTitle {
         font-size: 4rem;
+        line-height: 1.2;
     }
 
     .welcomeTitle {
@@ -424,6 +474,11 @@
 
     .sectionTitle {
         font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .featureCardTitle {
+        font-size: 1.25rem;
     }
 
     .featureGrid,

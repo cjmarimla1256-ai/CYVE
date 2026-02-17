@@ -3,15 +3,16 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
-    id: string;
+    id: string | number;
     email: string;
     name: string;
+    role: string;
 }
 
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
-    login: (email: string, password: string) => Promise<boolean>;
+    login: (email: string, password: string, remember?: boolean) => Promise<{ success: boolean; message: string }>;
     signup: (email: string, password: string, name: string) => Promise<boolean>;
     logout: () => void;
     loading: boolean;
@@ -24,68 +25,83 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check for stored user on mount
-        const storedUser = localStorage.getItem('cyve_user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-        setLoading(false);
+        const checkSession = async () => {
+            try {
+                const res = await fetch('http://localhost/ARZAGA/CYVE/CYVE/backend/api/check_session.php', {
+                    credentials: 'include'
+                });
+                const data = await res.json();
+                if (data.success) {
+                    setUser(data.user);
+                    localStorage.setItem('cyve_user', JSON.stringify(data.user));
+                } else {
+                    setUser(null);
+                    localStorage.removeItem('cyve_user');
+                }
+            } catch (error) {
+                console.error('Session check error:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        checkSession();
     }, []);
 
-    const login = async (email: string, password: string): Promise<boolean> => {
+    const login = async (email: string, password: string, remember: boolean = false): Promise<{ success: boolean; message: string }> => {
         try {
-            // Simulate API call - in production, this would call your backend
-            const storedUsers = JSON.parse(localStorage.getItem('cyve_users') || '[]');
-            const foundUser = storedUsers.find(
-                (u: any) => u.email === email && u.password === password
-            );
+            const res = await fetch('http://localhost/ARZAGA/CYVE/CYVE/backend/api/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, remember }),
+                credentials: 'include'
+            });
+            const data = await res.json();
 
-            if (foundUser) {
-                const userWithoutPassword = { id: foundUser.id, email: foundUser.email, name: foundUser.name };
-                setUser(userWithoutPassword);
-                localStorage.setItem('cyve_user', JSON.stringify(userWithoutPassword));
-                return true;
+            if (data.success) {
+                setUser(data.user);
+                localStorage.setItem('cyve_user', JSON.stringify(data.user));
+                return { success: true, message: data.message };
             }
-            return false;
+            return { success: false, message: data.message || 'Authentication failed' };
         } catch (error) {
             console.error('Login error:', error);
-            return false;
+            return { success: false, message: 'Server connection failed. Is XAMPP running?' };
         }
     };
 
     const signup = async (email: string, password: string, name: string): Promise<boolean> => {
         try {
-            // Simulate API call - in production, this would call your backend
-            const storedUsers = JSON.parse(localStorage.getItem('cyve_users') || '[]');
+            const res = await fetch('http://localhost/ARZAGA/CYVE/CYVE/backend/api/signup.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, name }),
+                credentials: 'include'
+            });
+            const data = await res.json();
 
-            // Check if user already exists
-            if (storedUsers.find((u: any) => u.email === email)) {
-                return false;
+            if (data.success) {
+                setUser(data.user);
+                localStorage.setItem('cyve_user', JSON.stringify(data.user));
+                return true;
             }
-
-            const newUser = {
-                id: Date.now().toString(),
-                email,
-                password,
-                name,
-            };
-
-            storedUsers.push(newUser);
-            localStorage.setItem('cyve_users', JSON.stringify(storedUsers));
-
-            const userWithoutPassword = { id: newUser.id, email: newUser.email, name: newUser.name };
-            setUser(userWithoutPassword);
-            localStorage.setItem('cyve_user', JSON.stringify(userWithoutPassword));
-            return true;
+            return false;
         } catch (error) {
             console.error('Signup error:', error);
             return false;
         }
     };
 
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('cyve_user');
+    const logout = async () => {
+        try {
+            await fetch('http://localhost/ARZAGA/CYVE/CYVE/backend/api/logout.php', {
+                credentials: 'include'
+            });
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            setUser(null);
+            localStorage.removeItem('cyve_user');
+        }
     };
 
     return (

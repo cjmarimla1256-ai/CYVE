@@ -6,6 +6,17 @@ import { useAuth } from '@/context/AuthContext';
 import { useRoadmap } from '@/context/RoadmapContext';
 import { useCalendar } from '@/context/CalendarContext';
 import styles from './page.module.css';
+import {
+    RoadmapIcon,
+    CalendarIcon,
+    ShieldIcon,
+    UserIcon,
+    TargetIcon,
+    CheckCircleIcon,
+    LibraryIcon,
+    NoteIcon,
+    MapPinIcon
+} from '@/components/Icons';
 
 export default function Home() {
     const { isAuthenticated, user } = useAuth();
@@ -22,7 +33,7 @@ export default function Home() {
 function LoggedOutHome() {
     return (
         <div className={styles.page}>
-            {/* Hero Section */}
+            {/* Hero Section - Figma order: search, tagline, title, subtitle, description */}
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
                     <div className={styles.searchArea}>
@@ -34,8 +45,8 @@ function LoggedOutHome() {
                     <h1 className={styles.heroTitle}>build, your, future</h1>
                     <p className={styles.heroSubtitle}>Your Roadmap Starts Here</p>
                     <p className={styles.heroDescription}>
-                        Cybersecurity is one of the most in-demand and impactful careers in today's digital world.
-                        Whether you're a student, career shifter, or tech enthusiast, our platform provides clear,
+                        Cybersecurity is one of the most in-demand and impactful careers in today&apos;s digital world.
+                        Whether you&apos;re a student, career shifter, or tech enthusiast, our platform provides clear,
                         step-by-step roadmaps to help you navigate your journey into the field of cybersecurity.
                     </p>
                     <div className={styles.ctaButtons}>
@@ -49,44 +60,82 @@ function LoggedOutHome() {
                 </div>
             </section>
 
-            {/* Hero Image Section */}
-            <section className={styles.heroImageSection}>
-                <div className={styles.heroImageWrapper}>
-                    {/* Images will be replaced with actual images */}
-                    <div className={styles.heroImagePlaceholder}>
-                        <span>Cybersecurity Illustration</span>
+            {/* Red Team Section - Figma: tempImageN0l1Kc, labels Red Team / Offensive Security */}
+            <section className={styles.teamSection}>
+                <Link href="/league/red-team" className={styles.teamLink}>
+                    <div className={styles.teamImageWrapper}>
+                        <div className={styles.teamImageMain} aria-hidden />
+                        <div className={styles.teamImageCard}>
+                            <span className={styles.teamImagePlaceholder}>Red Team</span>
+                        </div>
+                        <div className={styles.teamLabels}>
+                            <span className={styles.teamLabelLeft}>Red Team</span>
+                            <span className={styles.teamLabelRight}>Offensive Security</span>
+                        </div>
                     </div>
-                    <div className={styles.imageLabels}>
-                        <span className={styles.labelLeft}>Red Team</span>
-                        <span className={styles.labelRight}>Offensive Security</span>
-                    </div>
-                </div>
+                </Link>
             </section>
 
-            {/* Features Section */}
+            {/* Blue Team Section */}
+            <section className={styles.teamSection}>
+                <Link href="/league/blue-team" className={styles.teamLink}>
+                    <div className={styles.teamImageWrapper}>
+                        <div className={`${styles.teamImageMain} ${styles.teamBlue}`} aria-hidden />
+                        <div className={styles.teamImageCard}>
+                            <span className={styles.teamImagePlaceholder}>Blue Team</span>
+                        </div>
+                        <div className={styles.teamLabels}>
+                            <span className={styles.teamLabelLeft}>Blue Team</span>
+                            <span className={styles.teamLabelRight}>Deffensive Security</span>
+                        </div>
+                    </div>
+                </Link>
+            </section>
+
+            {/* Purple Team Section */}
+            <section className={styles.teamSection}>
+                <Link href="/league/purple-team" className={styles.teamLink}>
+                    <div className={styles.teamImageWrapper}>
+                        <div className={`${styles.teamImageMain} ${styles.teamPurple}`} aria-hidden />
+                        <div className={styles.teamImageCard}>
+                            <span className={styles.teamImagePlaceholder}>Purple Team</span>
+                        </div>
+                        <div className={styles.teamLabels}>
+                            <span className={styles.teamLabelLeft}>Purple Team</span>
+                            <span className={styles.teamLabelRight}>Collaboration & Optimization</span>
+                        </div>
+                    </div>
+                </Link>
+            </section>
+
+            {/* UniQ Section - Figma: 128px title, 4 gold rectangles with Picture of Roadmap/Map/Note/Calendar */}
             <section className={styles.featuresSection}>
                 <h2 className={styles.sectionTitle}>UniQ</h2>
                 <div className={styles.featureGrid}>
-                    <div className={styles.featureCard}>
-                        <div className={styles.featureIcon}>📍</div>
-                        <h3>Personalized Roadmap</h3>
-                        <p>Follow a structured path tailored to your cybersecurity career goals</p>
-                    </div>
-                    <div className={styles.featureCard}>
-                        <div className={styles.featureIcon}>🗺️</div>
-                        <h3>Career Map</h3>
-                        <p>Discover companies and positions aligned with your skills and progress</p>
-                    </div>
-                    <div className={styles.featureCard}>
-                        <div className={styles.featureIcon}>📝</div>
-                        <h3>Note Capability</h3>
-                        <p>Track your learning with notes and custom reminders</p>
-                    </div>
-                    <div className={styles.featureCard}>
-                        <div className={styles.featureIcon}>📅</div>
-                        <h3>Smart Calendar</h3>
-                        <p>Never miss a deadline with integrated task management</p>
-                    </div>
+                    <Link href="/roadmap" className={styles.featureCard}>
+                        <div className={styles.featureIconWrapper}>
+                            <RoadmapIcon width={80} height={80} color="#000000" />
+                        </div>
+                        <h3 className={styles.featureCardTitle}>Picture of Roadmap</h3>
+                    </Link>
+                    <Link href="/league" className={styles.featureCard}>
+                        <div className={styles.featureIconWrapper}>
+                            <MapPinIcon width={80} height={80} color="#000000" />
+                        </div>
+                        <h3 className={styles.featureCardTitle}>Picture of Map</h3>
+                    </Link>
+                    <Link href="/roadmap" className={styles.featureCard}>
+                        <div className={styles.featureIconWrapper}>
+                            <NoteIcon width={80} height={80} color="#000000" />
+                        </div>
+                        <h3 className={styles.featureCardTitle}>Picture of Note Capability</h3>
+                    </Link>
+                    <Link href="/calendar" className={styles.featureCard}>
+                        <div className={styles.featureIconWrapper}>
+                            <CalendarIcon width={80} height={80} color="#000000" />
+                        </div>
+                        <h3 className={styles.featureCardTitle}>Picture of Calendar</h3>
+                    </Link>
                 </div>
             </section>
         </div>
@@ -111,7 +160,9 @@ function LoggedInHome({ user, progress, upcomingTasks }: any) {
 
                 <div className={styles.statsGrid}>
                     <div className={`${styles.statCard} ${styles.progressCard}`}>
-                        <div className={styles.statIcon}>🎯</div>
+                        <div className={styles.statIcon}>
+                            <TargetIcon width={40} height={40} color="#f5be1e" />
+                        </div>
                         <div className={styles.statContent}>
                             <p className={styles.statLabel}>Roadmap Progress</p>
                             <p className={styles.statValue}>{progress}%</p>
@@ -122,7 +173,9 @@ function LoggedInHome({ user, progress, upcomingTasks }: any) {
                     </div>
 
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon}>✅</div>
+                        <div className={styles.statIcon}>
+                            <CheckCircleIcon width={40} height={40} color="#f5be1e" />
+                        </div>
                         <div className={styles.statContent}>
                             <p className={styles.statLabel}>Tasks Today</p>
                             <p className={styles.statValue}>{todayTasks.length}</p>
@@ -130,7 +183,9 @@ function LoggedInHome({ user, progress, upcomingTasks }: any) {
                     </div>
 
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon}>📚</div>
+                        <div className={styles.statIcon}>
+                            <LibraryIcon width={40} height={40} color="#f5be1e" />
+                        </div>
                         <div className={styles.statContent}>
                             <p className={styles.statLabel}>Total Tasks</p>
                             <p className={styles.statValue}>{upcomingTasks.length}</p>
@@ -142,19 +197,27 @@ function LoggedInHome({ user, progress, upcomingTasks }: any) {
                     <h2 className={styles.sectionHeading}>Quick Actions</h2>
                     <div className={styles.actionGrid}>
                         <Link href="/roadmap" className={styles.actionCard}>
-                            <span className={styles.actionIcon}>🗺️</span>
+                            <span className={styles.actionIcon}>
+                                <RoadmapIcon width={32} height={32} color="#f5be1e" />
+                            </span>
                             <span className={styles.actionText}>Continue Roadmap</span>
                         </Link>
                         <Link href="/calendar" className={styles.actionCard}>
-                            <span className={styles.actionIcon}>📅</span>
+                            <span className={styles.actionIcon}>
+                                <CalendarIcon width={32} height={32} color="#f5be1e" />
+                            </span>
                             <span className={styles.actionText}>View Calendar</span>
                         </Link>
                         <Link href="/league" className={styles.actionCard}>
-                            <span className={styles.actionIcon}>🛡️</span>
+                            <span className={styles.actionIcon}>
+                                <ShieldIcon width={32} height={32} color="#f5be1e" />
+                            </span>
                             <span className={styles.actionText}>Explore Teams</span>
                         </Link>
                         <Link href="/profile" className={styles.actionCard}>
-                            <span className={styles.actionIcon}>👤</span>
+                            <span className={styles.actionIcon}>
+                                <UserIcon width={32} height={32} color="#f5be1e" />
+                            </span>
                             <span className={styles.actionText}>Edit Profile</span>
                         </Link>
                     </div>

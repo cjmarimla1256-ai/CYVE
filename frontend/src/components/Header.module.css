@@ -62,7 +62,22 @@
     width: 100%;
 }
 
-.navLink.active {
+.navLink.navHome.active {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    min-height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navLink.navHome.active::after {
+    display: none;
+}
+
+.navLink.active:not(.navHome) {
     color: var(--color-gold);
 }
 
@@ -97,6 +112,9 @@
 .btnLogin {
     background-color: var(--color-gold);
     color: var(--color-black);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
 .btnLogin:hover {

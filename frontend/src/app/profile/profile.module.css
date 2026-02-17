@@ -58,6 +58,59 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.roleHint {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 1.5rem;
+    font-size: 1rem;
+}
+
+.roleGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.roleCard {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-white);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.roleCard:hover {
+    border-color: var(--color-gold);
+    background-color: rgba(245, 190, 30, 0.1);
+}
+
+.roleCardActive {
+    border-color: var(--color-gold);
+    background-color: rgba(245, 190, 30, 0.2);
+}
+
+.roleLabel {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.roleDesc {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.roleSelected {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-gold);
+}
+
 .formGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

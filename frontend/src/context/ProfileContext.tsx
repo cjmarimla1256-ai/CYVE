@@ -20,12 +20,16 @@ export interface Experience {
     endDate: string;
 }
 
+export type PreferredRole = 'red' | 'blue' | 'purple';
+
 export interface ProfileData {
     name: string;
     email: string;
     location: string;
     bio: string;
     phone: string;
+    /** User's chosen cybersecurity role path: Red (Offensive), Blue (Defensive), Purple (Hybrid) */
+    preferredRole: PreferredRole | null;
     education: Education[];
     experience: Experience[];
     skills: string[];
@@ -51,6 +55,7 @@ const defaultProfile: ProfileData = {
     location: '',
     bio: '',
     phone: '',
+    preferredRole: null,
     education: [],
     experience: [],
     skills: [],
@@ -65,7 +70,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const storedProfile = localStorage.getItem('cyve_profile');
         if (storedProfile) {
-            setProfile(JSON.parse(storedProfile));
+            const parsed = { ...defaultProfile, ...JSON.parse(storedProfile) };
+            if (parsed.preferredRole === undefined) parsed.preferredRole = null;
+            setProfile(parsed);
         }
     }, []);
 
